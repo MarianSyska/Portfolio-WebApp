@@ -1,0 +1,67 @@
+{% load ms_util %}
+
+{% uuid as collapse_id %}
+
+<div class="skill-item">
+
+    <div class="skill-item__box">
+
+        <button 
+            class="
+                skill-item__caption
+                {% if item.subitems or item.description %}
+                    collapsed
+                {% endif %}
+            "
+            type="button"
+            {% if item.subitems or item.description %} 
+                data-bs-toggle="collapse" 
+                data-bs-target=".skill-item__collapse-{{ collapse_id }}"
+                aria-expanded="false" 
+                aria-controls="skill-item__description-{{ collapse_id }} skill-item__sub-list-{{ collapse_id }}"
+            {% endif %}
+        >
+            {% if item.subitems or item.description %}
+                <i class="skill-item__collapse-icon-closed bi bi-caret-right-fill"></i>
+            {% endif %}
+
+            {{ item.title }}
+        </button>
+
+        {% if item.description %}
+
+            <div 
+                id="skill-item__description-{{ collapse_id }}" 
+                class="
+                    skill-item__description
+                    {% if item.description %}
+                        collapse
+                    {% endif %}
+                    skill-item__collapse-{{ collapse_id }}"
+            >
+                {{ item.description }}
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    {% if item.subitems %}
+
+        <div 
+            id="skill-item__sub-list-{{ collapse_id }}" 
+            class="
+                skill-item__sub-list
+                skill-list
+                {% if item.subitems%}
+                    collapse
+                {% endif %}
+                skill-item__collapse-{{ collapse_id }}"
+        >
+            {% for subitem in item.subitems %}
+                {% include 'home/components/cv/skill-item.html' with item=subitem %}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+</div>

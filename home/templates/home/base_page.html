@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+{% load static wagtailcore_tags%}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="icon" type="image/x-icon" href="{% static 'home/images/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'home/css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/base.css' %}">
+{% endblock %}
+
+{% block body_class %}l-slideshow{% endblock %}
+
+{% block body %}
+    {% if not skip_intro %}
+
+        <div class="l-intro l-slideshow__item">
+            <div class="l-intro__credentials">
+                {% image page.avatar original class="l-intro__portrait" width="" height="" %}
+                <div class="l-intro__fullname">{{ page.user.first_name }} {{ page.user.last_name }}</div>
+                <div class="l-intro__statement">{{ page.subtext }}</div>
+            </div>
+            <i class="bi bi-chevron-double-down l-intro__scroll-icon"></i>
+        </div>
+
+    {% endif %}
+
+    <div class="l-slideshow__item l-content">
+        <div class="l-content__center-strip">
+            <header class="{% block header_class %}l-content__header{% endblock %}">
+                {% block header %}
+                    <nav class="l-nav-bar">
+                        {% for item in menu_items %}
+                                <a
+                                    class="
+                                        l-nav-bar__item
+                                        {% if item.id == self.id %} l-nav-bar__item--is_current {% endif %}"
+                                    {% if item.id != self.id %}
+                                        href="{% pageurl item %}?skip-intro"
+                                    {% endif %}
+                                    data-nav-element="{{ item.id }}"
+                                >
+                                    <i class="bi bi-{{ item.menu_icon }}"></i>
+                                    <span>{{ item.title }}</span>
+                                </a>
+                        {% endfor %}
+                    </nav>
+                    <div class="l-attention-banner toast" id="construction-toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                        <span class="toast-notification__text">
+                            <i class="bi bi-info-circle"></i>
+                            This page is still under construction. Thank you for your understanding.
+                        </span>
+                        <button class="l-attention-banner__dismiss" data-bs-dismiss="toast" aria-label="Dismiss">
+                            <i class="bi bi-x-circle"></i>
+                        </button>
+                    </div>
+                {% endblock header %}
+            </header>
+            <main class="{% block main_class %}l-content__main{% endblock %}">
+                {% block content %}{% endblock content %}
+            </main>
+            <footer class="{% block footer_class %}l-content__footer{% endblock %}">
+                {% block footer %}{% endblock footer %}
+            </footer>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'home/js/base-page.js' %}"></script>
+{% endblock extra_js %}

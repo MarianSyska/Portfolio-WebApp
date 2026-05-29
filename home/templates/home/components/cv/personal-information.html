@@ -1,0 +1,25 @@
+{% load static wagtailimages_tags %}
+
+<div class="personal-information">
+    {% image page.avatar original class="personal-information__portrait" width="" height="" %}
+    <div class="personal-information__name">{{ page.user.first_name }} {{ page.user.last_name }}</div>
+    <div class="personal-information__subtitle">{{ subtext }}</div>
+    <div class="personal-information__links">
+        <a href="mailto:{{ page.user.email }}" class="personal-information__link">
+            <i class="bi bi-envelope-fill"></i>
+            {{ page.user.email }}
+        </a>
+        {% if linkedin_link %}
+        <a href="{{ linkedin_link }}" class="personal-information__link" target="_blank">
+            <i class="bi bi-linkedin"></i>
+            LinkedIn
+        </a>
+        {% endif %}
+        {% if github_link %}
+        <a href="{{ github_link }}" class="personal-information__link" target="_blank">
+            <i class="bi bi-github"></i>
+            GitHub
+        </a>
+        {% endif %}
+    </div>
+</div>

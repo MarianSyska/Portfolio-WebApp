@@ -1,0 +1,28 @@
+.l-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 8px;
+        border-bottom: 3px solid var(--color-secondary);
+
+        i { font-size: 1.2rem; color: var(--color-primary); }
+    }
+
+    &__title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--color-primary-dark);
+        letter-spacing: -0.01em;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,14 @@
+<div class="education-item">
+    <div class="education-item__institute">{{ item.institution }}</div>
+    <div class="education-item__degree">{{ item.title }}</div>
+    {% if item.grade or item.conclusion_date %}
+        <div class="education-item__details">
+            {% if item.grade %}
+            <span class="education-item__grade"><i class="bi bi-award"></i> Grade: {{ item.grade }}</span>
+            {% endif %}
+            {% if item.conclusion_date %}
+            <span class="education-item__conclusion"><i class="bi bi-mortarboard"></i> {{ item.conclusion_date|date:'M Y' }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

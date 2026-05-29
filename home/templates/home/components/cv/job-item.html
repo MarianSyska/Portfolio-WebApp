@@ -1,0 +1,11 @@
+<div class="job-item">
+    <div class="job-item__role">{{ item.role }}</div>
+    <div class="job-item__company">at <span class="italic">{{ item.company }}</span></div>
+    {% if item.role_description %}
+    <div class="job-item__description">{{ item.role_description }}</div>
+    {% endif %}
+    <div class="job-item__dates">
+        <i class="bi bi-calendar3"></i>
+        {{ item.employment_duration }}
+    </div>
+</div>

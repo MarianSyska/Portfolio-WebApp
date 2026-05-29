@@ -1,0 +1,41 @@
+{% extends "home/base_page.html" %}
+{% load static wagtailimages_tags %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'home/css/pages/portfolio-page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="portfolio-grid" id="portfolio-grid">
+        {% for item in items %}
+            <div class="portfolio-item-wrp"><div class="portfolio-item">
+                {% image item.image fill-450x270 width="" height="" class="portfolio-item__thumbnail" %}
+                <div class="portfolio-item__body">
+                    <div class="portfolio-item__title">{{ item.title }}</div>
+                    <div class="portfolio-item__description">
+                        {{ item.description }}
+                    </div>
+                    <div class="portfolio-item__tags">
+                        {% for tag in item.get_tags %}
+                            <span class="portfolio-item__tag">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% if item.github_link %}
+                        <a href="{{ item.github_link }}" class="portfolio-item__github-link-box" target="_blank">
+                            <i class="bi bi-github"></i>
+                            Repository
+                        </a>
+                    {% endif %}
+                </div>
+            </div></div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'home/js/portfolio-page.js' %}"></script>
+{% endblock extra_js %}
