@@ -60,6 +60,9 @@ authors = [
 "Homepage" = "https://marian-syska.de/"
 "GitHub" = "https://github.com/MarianSyska/Portfolio-WebApp.git"
 
+[tool.setuptools]
+packages = []
+
 [tool.ruff]
 line-length = 88
 target-version = "py312"
