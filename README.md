@@ -72,7 +72,9 @@ gunicorn MySite.wsgi:application
 ```
 Portfolio-WebApp/
 ├── MySite/                        # Django project package
-│   ├── settings.py                # Django settings file
+│   ├── settings.py                # Django settings (django-environ)
+│   ├── urls.py                    # Root URL configuration
+│   ├── wsgi.py                    # WSGI entry point
 │   ├── templates/                 # base.html, 404.html, 500.html
 │   └── static/                    # Global static assets
 ├── home/                          # Core Django app
@@ -81,9 +83,17 @@ Portfolio-WebApp/
 │   ├── static/home/               # SCSS sources, compiled CSS, JS, images, fonts
 │   ├── middleware.py              # TokenReferralMiddleware
 │   ├── views.py                   # Wagtail SnippetViewSets
-│   └── wagtail_hooks.py          # Admin registration
-├── media/                         # User-uploaded images
-├── requirements.txt               # Python dependencies
+│   ├── wagtail_hooks.py           # Admin registration
+│   ├── templatetags/              # Custom template tags
+│   ├── management/                # Custom management commands
+│   └── migrations/                # Database migrations
+├── media/                         # User-uploaded images (gitignored)
+├── static/                        # Collected static files
+├── meta/                          # Design assets (color palette, etc.)
+├── mock/                          # Mock data images
+├── .env.dist                      # Environment variable template (copy to .env)
+├── .github/                       # GitHub Actions workflows
+├── pyproject.toml                 # Python project config & dependencies
 ├── compile_scss.py                # SCSS compilation script
 └── manage.py                      # Django management entry point
 ```
