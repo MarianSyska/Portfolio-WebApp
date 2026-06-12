@@ -50,8 +50,16 @@ Visit **http://127.0.0.1:8000/** — the admin is at `/admin` (default mock cred
 
 ## Production Build
 
+Settings are managed via **django-environ**. Copy the template and fill in your values:
+
 ```bash
-export DJANGO_SETTINGS_MODULE="MySite.settings.production"
+cp .env.dist .env
+# Then edit .env with your production credentials
+```
+
+The `.env` file is read automatically by `MySite/settings.py`. Set `USE_SECURE_CONNECTION=True` to enable HTTPS-only settings (secure cookies, SSL redirect, HSTS).
+
+```bash
 python compile_scss.py
 python manage.py collectstatic --noinput
 python manage.py migrate --noinput
