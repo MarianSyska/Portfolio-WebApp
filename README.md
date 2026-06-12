@@ -31,7 +31,7 @@ source venv/bin/activate   # Linux/Mac
 .\venv\Scripts\Activate    # Windows
 
 # Install dependencies
-pip install -r requirements.txt
+pip install .
 
 # Compile SCSS to CSS
 python compile_scss.py
@@ -64,7 +64,7 @@ gunicorn MySite.wsgi:application
 ```
 Portfolio-WebApp/
 ├── MySite/                        # Django project package
-│   ├── settings/                  # base.py, dev.py, production.py, test.py
+│   ├── settings.py                # Django settings file
 │   ├── templates/                 # base.html, 404.html, 500.html
 │   └── static/                    # Global static assets
 ├── home/                          # Core Django app
@@ -75,7 +75,6 @@ Portfolio-WebApp/
 │   ├── views.py                   # Wagtail SnippetViewSets
 │   └── wagtail_hooks.py          # Admin registration
 ├── media/                         # User-uploaded images
-├── Dockerfile                     # Production Docker image
 ├── requirements.txt               # Python dependencies
 ├── compile_scss.py                # SCSS compilation script
 └── manage.py                      # Django management entry point
