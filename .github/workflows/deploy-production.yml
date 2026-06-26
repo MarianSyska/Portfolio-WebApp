@@ -18,13 +18,12 @@ jobs:
             # Change to maintenance mode
             
             sudo ln -sfn /etc/nginx/sites-available/maintenance.conf /etc/nginx/sites-enabled/nginx.conf
-            sudo systemctl reload nginx
+            sudo systemctl reload nginx.service
 
 
             # Stop the application
 
-            sudo systemctl stop portfolio-webapp
-
+            sudo systemctl stop portfolio-webapp-gunicorn.service
 
             # Update code
 
@@ -52,10 +51,10 @@ jobs:
 
             # Start Django server
 
-            sudo systemctl start portfolio-webapp
+            sudo systemctl start portfolio-webapp-gunicorn.service
 
 
             # Change back to normal mode
 
             sudo ln -sfn /etc/nginx/sites-available/standard.conf /etc/nginx/sites-enabled/nginx.conf
-            sudo systemctl reload nginx
+            sudo systemctl reload nginx.service
