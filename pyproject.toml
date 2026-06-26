@@ -58,12 +58,26 @@ authors = [
     {name = "Marian Syska", email = "marian.syska@web.de"},
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-django>=4.9",
+]
+
 [project.urls]
 "Homepage" = "https://marian-syska.de/"
 "GitHub" = "https://github.com/MarianSyska/Portfolio-WebApp.git"
 
 [tool.setuptools]
 packages = []
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "MySite.settings"
+python_files = ["test_*.py"]
+testpaths = ["home/tests"]
+
+[tool.django]
+TEST_RUNNER = "pytest_django.runner.PytestTestRunner"
 
 [tool.ruff]
 line-length = 88
