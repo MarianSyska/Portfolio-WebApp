@@ -23,3 +23,10 @@ env.bak/
 venv.bak/ 
 
 *.css
+
+# Distribution / Packaging
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
