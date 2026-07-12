@@ -111,10 +111,11 @@ class Command(BaseCommand):
                         company=fake.unique.company(),
                         employment_date=fake.date_between(start_date="-30y", end_date="now"),
                         termination_date=(fake.date_between(start_date="-30y", end_date="now")),
+                        current_job=i == 0,
                         role=fake.unique.job(),
                         role_description=fake.text(max_nb_chars=random.randint(100, 200)),  # noqa: S311
                     )
-                 for _ in range(count)]
+                 for i in range(count)]
 
         JobItem.objects.bulk_create(items)
 

@@ -1,5 +1,5 @@
 import secrets
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from django.contrib.sessions.models import Session
 from django.db import models
@@ -7,16 +7,16 @@ from wagtail.admin.panels import FieldPanel
 
 
 def default_expire_date() -> None:
-        return datetime.now(tz=datetime.UTC).date() + timedelta(days=30*3)
+        return datetime.now(tz=timezone.utc).date() + timedelta(days=30*3)
 
 
 def default_token() -> str:
-    return secrets.token_urlsafe(14)
+    return secrets.token_urlsafe(9)
 
 
 class ReferralToken(models.Model):
 
-    id = models.CharField(max_length=14,
+    id = models.CharField(max_length=12,
                           unique=True,
                           default=default_token,
                           primary_key=True)

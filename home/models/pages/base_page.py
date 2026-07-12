@@ -4,12 +4,13 @@ from django.forms import ValidationError
 from django.http import HttpRequest
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
+from django.contrib.auth.models import User
 
 User = get_user_model()
 
 
 def get_superuser():  # noqa: ANN201
-    return User.objects.filter(is_superuser=True).first()
+    return User.objects.filter(is_superuser=True).order_by("date_joined").first()
 
 
 class BasePage(Page):
