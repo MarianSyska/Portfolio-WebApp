@@ -6,6 +6,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -14,47 +17,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-
-            # Change to maintenance mode
-            
-            sudo ln -sfn /etc/nginx/sites-available/maintenance.conf /etc/nginx/sites-enabled/nginx.conf
-            sudo systemctl reload nginx.service
-
-
-            # Stop the application
-
-            sudo systemctl stop portfolio-webapp-gunicorn.service
-
-            # Update code
-
             cd /home/wagtail/portfolio-webapp
-            git pull origin main
-
-
-            # Activate virtual environment
-
-            source venv/bin/activate
-
-
-            # Install Python dependencies
-
-            python3 -m pip install --upgrade pip
-            pip install .
-
-
-            # Set up Django server
-
-            python manage.py migrate --noinput
-            python compile_scss.py
-            python manage.py collectstatic --noinput
-
-
-            # Start Django server
-
-            sudo systemctl start portfolio-webapp-gunicorn.service
-
-
-            # Change back to normal mode
-
-            sudo ln -sfn /etc/nginx/sites-available/standard.conf /etc/nginx/sites-enabled/nginx.conf
-            sudo systemctl reload nginx.service
+            git fetch origin main
+            git checkout origin/main -- Scripts/deploy.sh
+            bash Scripts/deploy.sh
