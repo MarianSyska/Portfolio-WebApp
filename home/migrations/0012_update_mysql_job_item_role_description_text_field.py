@@ -7,14 +7,14 @@ def modify_to_longtext(apps, schema_editor):
     if schema_editor.connection.vendor == 'mysql':
         schema_editor.execute(
             "ALTER TABLE home_jobitem"
-            "MODIFY COLUMN role_description LONGTEXT"
+            "MODIFY COLUMN role_description LONGTEXT NULL"
         )
 
 def reverse_to_text(apps, schema_editor):
     if schema_editor.connection.vendor == 'mysql':
         schema_editor.execute(
             "ALTER TABLE home_jobitem"
-            "MODIFY COLUMN role_description TEXT"
+            "MODIFY COLUMN role_description TEXT NULL"
         )
 
 class Migration(migrations.Migration):
