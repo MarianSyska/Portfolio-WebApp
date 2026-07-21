@@ -22,12 +22,14 @@
                             <span class="portfolio-item__tag">{{ tag.name }}</span>
                         {% endfor %}
                     </div>
-                    {% if item.github_link %}
-                        <a href="{{ item.github_link }}" class="portfolio-item__github-link-box" target="_blank">
-                            <i class="bi bi-github"></i>
-                            Repository
-                        </a>
-                    {% endif %}
+                    <div class="portfolio-item__links">
+                        {% for link in item.links.all %}
+                            <a href="{{ link.url }}" class="portfolio-item__link" target="_blank">
+                                <i class="{{ link.icon_class }}"></i>
+                                {{ link.text }}
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div></div>
         {% endfor %}

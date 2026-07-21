@@ -11,6 +11,7 @@ class TestCreateMockDatabase:
         out = StringIO()
         call_command("create_mock_database", stdout=out)
         assert PortfolioItem.objects.count() == 10
+        assert not PortfolioItem.objects.filter(links__isnull=True).exists()
 
     def test_creates_skill_items(self, db, default_site):
         out = StringIO()

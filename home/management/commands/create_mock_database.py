@@ -11,10 +11,12 @@ from wagtail.images import get_image_model
 from wagtail.models import Site
 
 from home.models import (
+    LINK_ICON_CLASS_CHOICES,
     CVPage,
     EducationItem,
     JobItem,
     PortfolioItem,
+    PortfolioItemLink,
     PortfolioPage,
     SkillDescriptionItem,
     SkillSubDescriptionItem,
@@ -54,8 +56,13 @@ class Command(BaseCommand):
                 show_title=bool(random.randint(0, 1)),  # noqa: S311
                 image=random.choice(mock_images),  # noqa: S311
                 description=fake.paragraph(nb_sentences=10),
-                github_link=(fake.unique.url() if random.randint(0, 1) else ""),  # noqa: S311
             )
+
+            item.links = [PortfolioItemLink(icon_class=random.choice(LINK_ICON_CLASS_CHOICES)[0],
+                                            url=fake.url(),
+                                            text=fake.word())
+                                            for _
+                                            in range(random.randint(1, 3))]
 
             item.tags.set([fake.word() for _ in range(random.randint(1, 3))])  # noqa: S311
             item.save()

@@ -3,7 +3,9 @@ __all__ = [
     "CVPage",
     "EducationItem",
     "JobItem",
+    "LINK_ICON_CLASS_CHOICES",
     "PortfolioItem",
+    "PortfolioItemLink",
     "PortfolioPage",
     "ReferralToken",
     "RequestLog",
@@ -23,5 +25,5 @@ from .cv import (
     SkillSubSubDescriptionItem,
 )
 from .pages import BasePage, CVPage, PortfolioPage, SiteRootPage
-from .portfolio import PortfolioItem
+from .portfolio import LINK_ICON_CLASS_CHOICES, PortfolioItem, PortfolioItemLink
 from .referral import ReferralToken, RequestLog, default_expire_date, default_token

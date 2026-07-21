@@ -42,14 +42,6 @@ class TestPortfolioItem:
         )
         assert item.show_title is False
 
-    def test_github_link_blank_by_default(self, db, wagtail_image):
-        item = PortfolioItem.objects.create(
-            project_title="No Link",
-            image=wagtail_image,
-            description="No github.",
-        )
-        assert item.github_link == ""
-
     def test_sort_order_default(self, db, wagtail_image):
         item = PortfolioItem.objects.create(
             project_title="Ordered",
@@ -73,3 +65,5 @@ class TestTechnologyTag:
         tt = TechnologyTag.objects.get()
         assert tt.content_object == item
         assert tt.tag == tag
+
+

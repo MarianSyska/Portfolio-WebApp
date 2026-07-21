@@ -1,12 +1,18 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, PublishingPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, PublishingPanel
 from wagtail.models import DraftStateMixin, Orderable, RevisionMixin
 
 from .technology_tag import TechnologyTag
 
+LINK_ICON_CLASS_CHOICES = [
+    ("bi bi-github", "Github"),
+    ("bi bi-mortarboard-fill", "Hochschule"),
+    ("bi bi bi-globe", "Globus"),
+]
 
 class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel):
 
@@ -20,7 +26,6 @@ class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel)
     )
     description = models.TextField()
     tags = ClusterTaggableManager(through=TechnologyTag, blank=True)
-    github_link = models.URLField(blank=True)
     revisions = GenericRelation("wagtailcore.Revision", related_query_name="+")
 
 
@@ -30,7 +35,7 @@ class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel)
         FieldPanel("image"),
         FieldPanel("description"),
         FieldPanel("tags"),
-        FieldPanel("github_link"),
+        InlinePanel("links"),
         PublishingPanel(),
     ]
 
@@ -45,3 +50,15 @@ class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel)
 
     class Meta:
         ordering = ("sort_order",)
+
+
+
+class PortfolioItemLink(Orderable):
+    portfolio_item = ParentalKey(PortfolioItem,
+                                 on_delete=models.CASCADE,
+                                 related_name="links")
+    icon_class = models.CharField(choices=LINK_ICON_CLASS_CHOICES,
+                                  max_length=100,
+                                  default="bi bi-github")
+    text = models.CharField(max_length=50)
+    url = models.URLField()
