@@ -18,6 +18,8 @@ def reverse_to_text(apps, schema_editor):
         )
 
 class Migration(migrations.Migration):
+    
+    atomic = False
 
     dependencies = [
         ('home', '0011_remove_portfolioitem_github_link_and_more'),
