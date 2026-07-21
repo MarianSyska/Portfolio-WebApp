@@ -35,7 +35,6 @@
 }
 
 @import "home/scss/module/simple-section";
-@import "home/scss/module/skill-item";
 @import "home/scss/module/education-item";
 @import "home/scss/module/job-item";
 @import "home/scss/module/personal-information";
@@ -45,19 +44,14 @@
         grid-template-columns: 1fr;
     }
     .cv-left-column {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+        align-items: center;
+    }
+    .personal-information {
+        width: 100%;
     }
 }
 
 @media (max-width: 640px) {
-    .cv-left-column {
-        grid-template-columns: 1fr;
-    }
-    .cv-left-column__bottom {
-        grid-template-columns: 1fr;
-    }
     .personal-information__portrait {
         width: 110px;
         height: 110px;

@@ -11,20 +11,10 @@
     <div class="cv-layout">
         <div class="cv-left-column" id="cv-left">
             {% include 'home/components/cv/personal-information.html' with user=page.user subtext='Software Developer' %}
+        </div>
 
+        <div class="cv-right-column" id="cv-right">
             {% if show_private_information %}
-                <div class="l-section" id="section-experience">
-                    <div class="l-section__header">
-                        <i class="bi bi-briefcase-fill"></i>
-                        <span class="l-section__title">Experience</span>
-                    </div>
-                    <div class="l-section__content job-list">
-                        {% for item in job_items %}
-                            {% include 'home/components/cv/job-item.html' with item=item %}
-                        {% endfor %}
-                    </div>
-                </div>
-
                 <div class="l-section" id="section-education">
                     <div class="l-section__header">
                         <i class="bi bi-mortarboard-fill"></i>
@@ -36,21 +26,19 @@
                         {% endfor %}
                     </div>
                 </div>
-            {% endif %}
-        </div>
 
-        <div class="cv-right-column" id="cv-right">
-            <div class="l-section" id="section-skills">
-                <div class="l-section__header">
-                    <i class="bi bi-lightbulb-fill"></i>
-                    <span class="l-section__title">Skillset</span>
+                <div class="l-section" id="section-experience">
+                    <div class="l-section__header">
+                        <i class="bi bi-briefcase-fill"></i>
+                        <span class="l-section__title">Experience</span>
+                    </div>
+                    <div class="l-section__content job-list">
+                        {% for item in job_items %}
+                            {% include 'home/components/cv/job-item.html' with item=item %}
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="l-section__content skill-list">
-                    {% for item in skill_description_items %}
-                        {% include 'home/components/cv/skill-item.html' with item=item %}
-                    {% endfor %}
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 
