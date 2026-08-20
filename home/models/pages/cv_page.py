@@ -1,6 +1,6 @@
 from django.db import models
 from django.http import HttpRequest
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import InlinePanel, MultiFieldPanel
 from wagtail.models import Page
 
 from home.models.cv.education_item import EducationItem
@@ -11,13 +11,10 @@ from home.models.referral import ReferralToken
 
 
 class CVPage(BasePage):
-    linkedin_link = models.URLField(max_length=200, blank=True)
-    github_link = models.URLField(max_length=200, blank=True)
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel("linkedin_link"),
-            FieldPanel("github_link"),
+            InlinePanel('links'),
             ],
             heading="Personal Information",
         ),
@@ -52,8 +49,6 @@ class CVPage(BasePage):
         context["skill_description_items"] = (
             SkillDescriptionItem.objects.filter(live=True)
         )
-        context["linkedin_link"] = self.linkedin_link
-        context["github_link"] = self.github_link
 
         return context
 

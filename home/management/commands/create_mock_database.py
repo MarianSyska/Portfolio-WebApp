@@ -12,6 +12,7 @@ from wagtail.models import Site
 
 from home.models import (
     LINK_ICON_CLASS_CHOICES,
+    CVLink,
     CVPage,
     EducationItem,
     JobItem,
@@ -134,10 +135,15 @@ class Command(BaseCommand):
                slug="cv",
                show_in_menus=True,
                menu_icon="person-circle",
-               github_link=fake.unique.url(),
-               linkedin_link=fake.unique.url(),
                avatar=avatar,
         )
+
+        cv_page.links.add(CVLink(url=fake.unique.url(),
+                                 icon="bi-linkedin",
+                                 title="LinkedIn"),
+                          CVLink(url=fake.unique.url(),
+                                 icon="bi-github",
+                                 title="GitHub",))
 
         portfolio_page = PortfolioPage(title="Portfolio",
                       slug="portfolio",

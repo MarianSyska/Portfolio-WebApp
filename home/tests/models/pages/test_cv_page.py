@@ -3,6 +3,8 @@ from unittest.mock import MagicMock
 
 import pytest
 from django.http import HttpRequest
+
+from home.models.cv.cv_link import CVLink
 from home.models.cv.education_item import EducationItem
 from home.models.cv.job_item import JobItem
 from home.models.cv.skill_description import SkillDescriptionItem
@@ -11,7 +13,7 @@ from home.models.pages.cv_page import CVPage
 
 class TestCVPageGetContext:
     def test_context_has_job_items(self, rf, db, admin_user, root_page, job_item, wagtail_image):
-        page = CVPage(title="CV", user=admin_user, linkedin_link="https://linkedin.com/in/test", avatar=wagtail_image)
+        page = CVPage(title="CV", user=admin_user, avatar=wagtail_image)
         root_page.add_child(instance=page)
         request = HttpRequest()
         request.session = {}
@@ -20,7 +22,7 @@ class TestCVPageGetContext:
         assert list(context["job_items"]) == [job_item]
 
     def test_context_has_education_items(self, rf, db, admin_user, root_page, education_item, wagtail_image):
-        page = CVPage(title="CV", user=admin_user, linkedin_link="https://linkedin.com/in/test", avatar=wagtail_image)
+        page = CVPage(title="CV", user=admin_user, avatar=wagtail_image)
         root_page.add_child(instance=page)
         request = HttpRequest()
         request.session = {}
@@ -30,7 +32,7 @@ class TestCVPageGetContext:
 
     def test_context_has_skill_items(self, rf, db, admin_user, root_page, wagtail_image):
         skill = SkillDescriptionItem.objects.create(title="Python", live=True)
-        page = CVPage(title="CV", user=admin_user, linkedin_link="https://linkedin.com/in/test", avatar=wagtail_image)
+        page = CVPage(title="CV", user=admin_user, avatar=wagtail_image)
         root_page.add_child(instance=page)
         request = HttpRequest()
         request.session = {}
@@ -42,16 +44,23 @@ class TestCVPageGetContext:
         page = CVPage(
             title="CV",
             user=admin_user,
-            linkedin_link="https://linkedin.com/in/test",
-            github_link="https://github.com/test",
             avatar=wagtail_image,
         )
+        linkein_link = CVLink(cv_page=page,
+                              url="https://linkedin.com/in/test",
+                              icon="bi-linkedin",
+                              title="LinkedIn")
+        github_link = CVLink(cv_page=page,
+                             url="https://github.com/test",
+                             icon="bi-github",
+                             title="GitHub")
+        page.links.add(linkein_link, github_link)
         root_page.add_child(instance=page)
         request = HttpRequest()
         request.session = {}
         context = page.get_context(request)
-        assert context["linkedin_link"] == "https://linkedin.com/in/test"
-        assert context["github_link"] == "https://github.com/test"
+        assert context["page"].links.filter(pk=linkein_link.pk).exists()
+        assert context["page"].links.filter(pk=github_link.pk).exists()
 
     def test_show_private_info_when_authenticated(self, rf, db, admin_user, root_page, wagtail_image):
         page = CVPage(title="CV", user=admin_user, avatar=wagtail_image)

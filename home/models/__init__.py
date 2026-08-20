@@ -1,6 +1,7 @@
 __all__ = [
     "BasePage",
     "CVPage",
+    "CVLink",
     "EducationItem",
     "JobItem",
     "LINK_ICON_CLASS_CHOICES",
@@ -18,6 +19,7 @@ __all__ = [
 ]
 
 from .cv import (
+    CVLink,
     EducationItem,
     JobItem,
     SkillDescriptionItem,
