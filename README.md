@@ -4,8 +4,8 @@ Personal portfolio and CV website built with **Django 5.1** and **Wagtail CMS 7.
 
 ## Features
 
-- **CV page** - personal information, work experience, education, and a collapsible skills tree
-- **Portfolio page** - project grid with images, descriptions, tags, and GitHub links
+- **CV page** - personal information, work experience, education
+- **Portfolio page** - project grid with images, descriptions, tags, and links
 - **Wagtail CMS admin** - manage CV items, portfolio projects, and referral tokens through a clean UI
 - **Responsive design** - Bootstrap 5 with custom SCSS; scroll-triggered animations (Anime.js)
 
@@ -13,7 +13,7 @@ Personal portfolio and CV website built with **Django 5.1** and **Wagtail CMS 7.
 
 | Layer | Technology |
 |---|---|
-| Backend | Django 5.1, Wagtail 7.2, Django REST Framework |
+| Backend | Django 5.1, Wagtail 7.2k |
 | Database | SQLite (dev), MySQL (production) |
 | Frontend | Bootstrap 5, SCSS, jQuery, Anime.js |
 | Infra | Gunicorn, nginx, GitHub Actions |
