@@ -18,6 +18,7 @@ class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel)
 
     project_title = models.CharField(max_length=50)
     show_title = models.BooleanField("Show title on thumbnail", default=False)
+    highlighted = models.BooleanField("Highlight this item?", default=False)
     image = models.ForeignKey(
         "wagtailimages.Image",
         on_delete=models.CASCADE,
@@ -32,6 +33,7 @@ class PortfolioItem(DraftStateMixin, RevisionMixin, Orderable, ClusterableModel)
     panels = [  # noqa: RUF012
         FieldPanel("project_title"),
         FieldPanel("show_title"),
+        FieldPanel("highlighted"),
         FieldPanel("image"),
         FieldPanel("description"),
         FieldPanel("tags"),

@@ -42,6 +42,14 @@ class TestPortfolioItem:
         )
         assert item.show_title is False
 
+    def test_highlighted_default(self, db, wagtail_image):
+            item = PortfolioItem.objects.create(
+                project_title="Default",
+                image=wagtail_image,
+                description="Check defaults.",
+            )
+            assert item.highlighted is False
+
     def test_sort_order_default(self, db, wagtail_image):
         item = PortfolioItem.objects.create(
             project_title="Ordered",

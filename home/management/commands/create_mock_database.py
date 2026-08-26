@@ -54,7 +54,8 @@ class Command(BaseCommand):
         for _ in range(count):
             item = PortfolioItem(
                 project_title=" ".join(fake.unique.words(random.randint(1, 5))),  # noqa: S311
-                show_title=bool(random.randint(0, 1)),  # noqa: S311
+                show_title=random.choice([True, False]),  # noqa: S311
+                highlighted=random.choice([True, False]),  # noqa: S311
                 image=random.choice(mock_images),  # noqa: S311
                 description=fake.paragraph(nb_sentences=10),
             )

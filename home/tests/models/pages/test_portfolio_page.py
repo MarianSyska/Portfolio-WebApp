@@ -35,15 +35,19 @@ class TestPortfolioPageGetContext:
         assert list(context["items"]) == [live_item]
 
     def test_context_items_ordered_by_sort_order(self, rf, db, admin_user, root_page, wagtail_image):
+
+        third = PortfolioItem.objects.create(
+            project_title="C", image=wagtail_image, description="Desc", live=True, sort_order=2
+        )
         second = PortfolioItem.objects.create(
-            project_title="B", image=wagtail_image, description="Desc", live=True, sort_order=2
+            project_title="B", image=wagtail_image, description="Desc", live=True, sort_order=1
         )
         first = PortfolioItem.objects.create(
-            project_title="A", image=wagtail_image, description="Desc", live=True, sort_order=1
+            project_title="A", highlighted=True, image=wagtail_image, description="Desc", live=True, sort_order=3
         )
         page = PortfolioPage(title="Portfolio", user=admin_user, avatar=wagtail_image)
         root_page.add_child(instance=page)
         request = HttpRequest()
         request.GET = {}
         context = page.get_context(request)
-        assert list(context["items"]) == [first, second]
+        assert list(context["items"]) == [first, second, third]

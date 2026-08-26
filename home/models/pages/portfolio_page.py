@@ -14,7 +14,15 @@ class PortfolioPage(BasePage):
 
         context = super().get_context(request, *args, **kwargs)
 
-        context["items"] = PortfolioItem.objects.filter(live=True)
+        context["items"] = (PortfolioItem
+                            .objects.
+                            filter(live=True)
+                            .order_by(
+                                "-highlighted",
+                                "sort_order")
+                            .select_related("image")
+                            .prefetch_related("tags"))
+
 
         return context
 
