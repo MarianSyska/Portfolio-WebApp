@@ -23,15 +23,13 @@ source venv/bin/activate
 
 # Install Python dependencies
 
-python3 -m pip install --upgrade pip
-pip install .
-
+uv sync --locked
 
 # Set up Django server
 
-python manage.py migrate --noinput
-python compile_scss.py
-python manage.py collectstatic --noinput
+uv run python manage.py migrate --noinput
+uv run python compile_scss.py
+uv run python manage.py collectstatic --noinput
 
 
 # Start Django server

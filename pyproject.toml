@@ -77,7 +77,7 @@ python_files = ["test_*.py"]
 testpaths = ["home/tests"]
 
 [tool.django]
-TEST_RUNNER = "pytest_django.runner.PytestTestRunner"
+TEST_RUNNER = "pytest_django.runner.TestRunner"
 
 [tool.ruff]
 line-length = 88
